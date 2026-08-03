@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.XunlianxiangmuDao">
+
+    <resultMap type="com.entity.XunlianxiangmuEntity" id="xunlianxiangmuMap">
+                    <result property="id"    column="id"    />
+                    <result property="addtime"    column="addtime"    />
+                    <result property="xiangmumingcheng"    column="xiangmumingcheng"    />
+                    <result property="xiangmutupian"    column="xiangmutupian"    />
+                    <result property="jiaolianxingming"    column="jiaolianxingming"    />
+                    <result property="jiaoliandianhua"    column="jiaoliandianhua"    />
+                    <result property="xunlianrenshu"    column="xunlianrenshu"    />
+                    <result property="xunlianshijian"    column="xunlianshijian"    />
+                    <result property="userid"    column="userid"    />
+                    <result property="sfsh"    column="sfsh"    />
+                    <result property="shhf"    column="shhf"    />
+            </resultMap>
+
+    <select id="selectListVO"
+            resultType="com.entity.vo.XunlianxiangmuVO">
+        SELECT * FROM xunlianxiangmu xunlianxiangmu
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.XunlianxiangmuVO">
+        SELECT xunlianxiangmu.* FROM xunlianxiangmu xunlianxiangmu
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectListView"
+            resultType="com.entity.view.XunlianxiangmuView">
+
+        SELECT xunlianxiangmu.* FROM xunlianxiangmu xunlianxiangmu
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.XunlianxiangmuView">
+        SELECT * FROM xunlianxiangmu xunlianxiangmu
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.CrkDao">
+
+    <resultMap type="com.entity.CrkEntity" id="crkMap">
+                    <result property="id"    column="id"    />
+                    <result property="addtime"    column="addtime"    />
+                    <result property="refid"    column="refid"    />
+                    <result property="name"    column="name"    />
+                    <result property="sl"    column="sl"    />
+                    <result property="crkzt"    column="crkzt"    />
+            </resultMap>
+
+    <select id="selectListVO"
+            resultType="com.entity.vo.CrkVO">
+        SELECT * FROM crk crk
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.CrkVO">
+        SELECT crk.* FROM crk crk
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectListView"
+            resultType="com.entity.view.CrkView">
+
+        SELECT crk.* FROM crk crk
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.CrkView">
+        SELECT * FROM crk crk
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+</mapper>

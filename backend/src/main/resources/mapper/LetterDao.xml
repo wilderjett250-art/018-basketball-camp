@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.LetterDao">
+
+    <resultMap type="com.entity.LetterEntity" id="letterMap">
+        <result property="id"    column="id"    />
+        <result property="sender"    column="sender"    />
+        <result property="senderName"    column="sender_name"    />
+        <result property="receiver"    column="receiver"    />
+        <result property="receiverName"    column="receiver_name"    />
+        <result property="sendTime"    column="send_time"    />
+        <result property="msg"    column="msg"    />
+        <result property="readStatus"    column="read_status"    />
+    </resultMap>
+
+    <select id="selectLetterList" parameterType="java.lang.Long" resultMap="letterMap">
+        SELECT
+            m1.sender,
+            m1.sender_name,
+            m1.msg,
+            m1.send_time,
+            m1.read_status
+        FROM
+            letter m1
+                INNER JOIN (
+                SELECT
+                    sender,
+                    MAX(send_time) as send_time
+                FROM
+                    letter
+                WHERE
+                    receiver = #{value}
+                GROUP BY
+                    sender
+            ) m2 ON m1.sender = m2.sender AND m1.send_time = m2.send_time
+        WHERE
+            m1.receiver = #{value}
+        ORDER BY
+            m1.send_time
+        DESC
+    </select>
+
+
+</mapper>

@@ -1,0 +1,239 @@
+
+<!-- 代码已包含 CSS：使用 TailwindCSS , 安装 TailwindCSS 后方可看到布局样式效果 -->
+<template>
+  <div class="min-h-screen bg-gray-50">
+    <div class="mx-auto max-w-7xl p-8">
+      <div class="rounded-xl bg-white p-8 shadow-lg">
+
+        <div class="mb-12 flex gap-12">
+
+          <div class="relative w-2/5 overflow-hidden" @click="handleImagePreview">
+                                                                                                                                                                                                                                                                                  <img :src="detail.xunlianyingtupian" alt="" class="h-[400px] w-full rounded-lg object-cover object-top cursor-pointer hover:opacity-90 transition-opacity"/>
+                                                                                                                                                                                                                                                                                                                                                                                                                                    
+          </div>
+
+          <div class="w-3/5">
+                                                                                                                            <h1 class="mb-6 text-4xl font-bold text-gray-900">{{detail.xunlianyingmingcheng}}</h1>
+                                                                                                                                                                                                                                                                                                                   <div class="mb-6 space-y-2">
+                                                  <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-700">训练营名称：</span>
+                <span class="text-gray-600">{{detail.xunlianyingmingcheng}}</span>
+              </div>
+                                                        <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-700">预约人：</span>
+                <span class="text-gray-600">{{detail.yuyueren}}</span>
+              </div>
+                                        <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-700">预约人电话：</span>
+                <span class="text-gray-600">{{detail.yuyuerendianhua}}</span>
+              </div>
+                                        <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-700">预约人年龄：</span>
+                <span class="text-gray-600">{{detail.yuyuerennianling}}</span>
+              </div>
+                                        <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-700">预约人性别：</span>
+                <span class="text-gray-600">{{detail.yuyuerenxingbie}}</span>
+              </div>
+                                        <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-700">预约时间：</span>
+                <span class="text-gray-600">{{detail.yuyueshijian}}</span>
+              </div>
+                                                  </div>
+
+            <div class="mb-6 flex items-center gap-4">
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                                    
+
+
+                             
+
+
+                                                                                    
+                                                                                                                                                 
+
+
+            </div>
+
+          </div>
+        </div>
+        <!-- 详情区 -->
+        <div class="mt-12 rounded-lg bg-gray-50 p-8">
+          <div class="prose prose-lg max-w-none">
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+
+          </div>
+        </div>
+        <!-- 评论区 -->
+
+
+      </div>
+    </div>
+    <!-- 图片预览弹窗 -->
+    <div v-if="showPreview" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75" @click="closePreview">
+      <img :src="detail.tupian" alt="预览图" class="max-h-[90vh] max-w-[90vw] object-contain"/>
+    </div>
+  </div>
+
+
+
+
+        
+
+        
+             
+                </template>
+
+
+<script setup>
+
+
+
+    import { defineAsyncComponent,reactive,ref,toRefs } from 'vue';
+    import { toRaw } from "@vue/reactivity";
+    import { Key } from '@/stores/auth';
+    import { Session } from '@/utils/storage';
+    import request from "@/utils/request";
+    import {notify,confirm} from '@/utils/element';
+    import { isAuth } from '@/utils/utils'
+    import { ElLoading } from 'element-plus'
+            const showPreview = ref(false);
+    const handleImagePreview = () => {
+      showPreview.value = true;
+    };
+    const closePreview = () => {
+      showPreview.value = false;
+    };
+
+    import { useRoute } from 'vue-router'
+
+        
+
+
+        
+    const route = useRoute()
+
+        
+        
+        
+    // 打印
+    const id=route.params.id
+    request({
+        url: `yuyueguanli/info/${id}`,
+        method: "get"
+    }).then((data) => {
+        if (data && data.code === 0) {
+        state.detail=data.data;
+                    } else {
+        notify(data.msg,{type:'error'});
+    }
+    });
+
+            const state=reactive({
+                detail:{},
+        user:{},
+        pinglunDate:[],
+                                detailTable:'yuyueguanli',
+        formData:{
+            userid:"",
+            nickname:"",
+            refid:"",
+            content:""
+        },
+        detailFlag:false,
+    })
+
+
+    const {detail,user,pinglunDate,detailFlag,
+                                        detailTable,
+        formData,
+    } = {...toRefs(state)};
+
+                
+
+        
+
+
+
+
+
+
+    let sessionTable = Session.get("tableName")
+    request({
+        url: sessionTable + '/session',
+        method: "get"
+    }).then((
+            data
+    ) => {
+        if (data && data.code === 0) {
+        state.user = data.data;
+    } else {
+        notify(data.msg,{type:'error'});
+
+
+    }
+    });
+
+
+
+
+    function download(file) {
+        window.open(`${file}`)
+    }
+
+
+    function init(id){
+        state.detailFlag=true;
+        info(id);
+            }
+    function info(id) {
+        request({
+            url: `yuyueguanli/info/${id}`,
+            method: "get"
+        }).then((data) => {
+            if (data && data.code === 0) {
+            state.detail=data.data;
+        } else {
+            notify(data.msg,{type:'error'});
+        }
+    });
+    }
+
+
+
+
+
+        
+        
+
+        
+        
+
+
+        
+
+        
+        
+        
+</script>
+
+<style scoped>
+
+        
+
+                
+        
+        
+</style>

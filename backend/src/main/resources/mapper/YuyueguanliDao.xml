@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.YuyueguanliDao">
+
+    <resultMap type="com.entity.YuyueguanliEntity" id="yuyueguanliMap">
+                    <result property="id"    column="id"    />
+                    <result property="addtime"    column="addtime"    />
+                    <result property="xunlianyingmingcheng"    column="xunlianyingmingcheng"    />
+                    <result property="xunlianyingtupian"    column="xunlianyingtupian"    />
+                    <result property="yuyueren"    column="yuyueren"    />
+                    <result property="yuyuerendianhua"    column="yuyuerendianhua"    />
+                    <result property="yuyuerennianling"    column="yuyuerennianling"    />
+                    <result property="yuyuerenxingbie"    column="yuyuerenxingbie"    />
+                    <result property="yuyueshijian"    column="yuyueshijian"    />
+                    <result property="userid"    column="userid"    />
+            </resultMap>
+
+    <select id="selectListVO"
+            resultType="com.entity.vo.YuyueguanliVO">
+        SELECT * FROM yuyueguanli yuyueguanli
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.YuyueguanliVO">
+        SELECT yuyueguanli.* FROM yuyueguanli yuyueguanli
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectListView"
+            resultType="com.entity.view.YuyueguanliView">
+
+        SELECT yuyueguanli.* FROM yuyueguanli yuyueguanli
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.YuyueguanliView">
+        SELECT * FROM yuyueguanli yuyueguanli
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+</mapper>

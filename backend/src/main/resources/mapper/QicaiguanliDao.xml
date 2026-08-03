@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.QicaiguanliDao">
+
+    <resultMap type="com.entity.QicaiguanliEntity" id="qicaiguanliMap">
+                    <result property="id"    column="id"    />
+                    <result property="addtime"    column="addtime"    />
+                    <result property="qicaimingcheng"    column="qicaimingcheng"    />
+                    <result property="qicaitupian"    column="qicaitupian"    />
+                    <result property="qicaiyongtu"    column="qicaiyongtu"    />
+                    <result property="alllimittimes"    column="alllimittimes"    />
+            </resultMap>
+
+    <select id="selectListVO"
+            resultType="com.entity.vo.QicaiguanliVO">
+        SELECT * FROM qicaiguanli qicaiguanli
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.QicaiguanliVO">
+        SELECT qicaiguanli.* FROM qicaiguanli qicaiguanli
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectListView"
+            resultType="com.entity.view.QicaiguanliView">
+
+        SELECT qicaiguanli.* FROM qicaiguanli qicaiguanli
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.QicaiguanliView">
+        SELECT * FROM qicaiguanli qicaiguanli
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+</mapper>
